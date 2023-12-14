@@ -5,7 +5,7 @@ DROP TRIGGER IF EXISTS minimize_quantity;
 
 DELIMITER //
 CREATE TRIGGER minimize_quantity
-AFTER INSERT IN orders
+AFTER INSERT ON orders
 FOR EACH ROW
 BEGIN
     UPDATE items
