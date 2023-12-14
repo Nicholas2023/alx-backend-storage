@@ -23,4 +23,4 @@ BEGIN
     INSERT INTO corrections(user_id, project_id, score)
         VALUES (user_id, project_id, score);
 END &&
-DELIMITER
+DELIMITER;
