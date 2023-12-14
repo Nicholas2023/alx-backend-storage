@@ -1,7 +1,12 @@
 -- A script that lists all bands with 'Glam rock'
 -- as their main style, ranked by their longevity
 
-SELECT band_name, formed
+SELECT band_name
+    CASE
+        WHEN formed IS NOT NULL AND split IS NOT NULL THEN (2023 - formed) - (2023 - split)
+        WHEN formed IS NOT NULL THEN 2023 - formed
+        ELSE NULL
+    END AS lifespan
 FROM metal_bands
-GROUP BY band_name
-ORDER BY formed ASC
+WHERE style LIKE '%Glam rock'
+ORDER BY lifespan DESC;
