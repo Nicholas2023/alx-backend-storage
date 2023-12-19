@@ -9,5 +9,11 @@ def schools_by_topic(mongo_collection, topic):
     A function that returns the list of documents having
     specific topics
     """
-    schools = mongo_collection.find({"topic": topic})
-    return list(schools)
+    schools = {
+        "topics": {
+            "$elemMatch": {
+                "$eq": topic,
+            },
+        },
+    }
+    return [doc for doc in mongo_collection.find(schools)]
