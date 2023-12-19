@@ -1,0 +1,3 @@
+// A script that displays the number of dicuments in a collection
+var n = db.school.count()
+print(n)
