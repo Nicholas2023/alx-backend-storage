@@ -16,7 +16,7 @@ class Cache:
         Initializes a Redis connection and flushes the database
         """
         self._redis = redis.Redis()
-        self._redis.flushdb()
+        self._redis.flushdb(True)
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
