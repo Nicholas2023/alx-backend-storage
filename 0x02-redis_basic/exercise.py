@@ -32,7 +32,7 @@ class Cache:
         return key
 
     def get(self, key: str, fn: Callable = None) ->
-    Union[str, bytes, int, float, None]:
+    Union[str, bytes, int, float]:
         """
         Retrieves data from Redis based on the provided key
         Args:
@@ -43,14 +43,11 @@ class Cache:
         """
         data = self._redis.get(key)
 
-        if data is None:
-            return None
-
         if fn is not None:
             return fn(data)
         return data
 
-    def get_str(self, key: str) -> Union[str, None]:
+    def get_str(self, key: str) -> str:
         """
         Retrieves data from Redis associated with the prvided
         key and converts it into a string
@@ -59,9 +56,9 @@ class Cache:
         Returns:
             - Union[str, None]: The retrieved data converted to str
         """
-        return self.get(key, fn=lambda d: d.decode("utf-8"))
+        return self.get(key, lambda d: d.decode("utf-8"))
 
-    def get_int(self, key: str) -> Union[int, None]:
+    def get_int(self, key: str) -> int:
         """
         Retrieves data from Redis associated with the key
         and converts it into an int
@@ -70,4 +67,4 @@ class Cache:
         return
             - Union[int, None]: Retrieved data converted into an int
         """
-        return self.get(key, fn=int)
+        return self.get(key, lambda d: int(d))
