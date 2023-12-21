@@ -18,8 +18,6 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    @call_history
-    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Stores the provided data in Redis with a generated random key
@@ -44,10 +42,7 @@ class Cache:
             - Union[Any]: The retrieved data
         """
         data = self._redis.get(key)
-
-        if fn is not None:
-            return fn(data)
-        return data
+        return fn(data) if fn is not None else data
 
     def get_str(self, key: str) -> str:
         """
